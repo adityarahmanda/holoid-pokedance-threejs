@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
+const base = import.meta.env.BASE_URL;
+
 let renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#background'),
   antialias: true,
@@ -24,9 +26,9 @@ renderer.outputColorSpace = THREE.SRGBColorSpace
 
 const scene = new THREE.Scene();
 const modelPaths = [
-  '/models/moona.glb',
-  '/models/iofi.glb',
-  '/models/risu.glb',
+  'models/moona.glb',
+  'models/iofi.glb',
+  'models/risu.glb',
 ];
 const loader = new GLTFLoader();
 loader.setMeshoptDecoder(MeshoptDecoder);
@@ -173,7 +175,7 @@ function loadAllModels() {
 function loadModel(modelPath) {
   return new Promise((resolve, reject) => {
     try {
-      loader.load(modelPath, (gltf) => {
+      loader.load(`${base}/${modelPath}`, (gltf) => {
         const modelScene = gltf.scene;
         const modelAnimations = gltf.animations;
 
